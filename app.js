@@ -21,6 +21,3 @@ function onReady(){
     newToDoText.value='';
 });
 }
-window.onload = function(){
-  onReady();
-};
