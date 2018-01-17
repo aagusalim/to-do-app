@@ -1,23 +1,41 @@
 function onReady(){
-  const addToDoForm = document.getElementById('addToDoForm');
-  const newToDoText = document.getElementById('newToDoText');
-  const toDoList = document.getElementById('toDoList');
-  addToDoForm.addEventListener('submit',event=>{event.preventDefault();
-//get the text
-    let title = newToDoText.value;
-    //create a new Li
-    let newLi= document.createElement('li');
-    //create a new input
-    let checkbox = document.createElement('input');
-    //set the input's type to checkbox
-    checkbox.type ="checkbox";
-    //set the card__title
-    newLi.appendChild(checkbox);
-    //attach the checkbox to the Li
-    newLi.appendChild(checkbox);
-    //attach the li to the ul
-    toDoList.appendChild(newLi);
-    //empty the input
-    newToDoText.value='';
+let toDos = [];
+const addToDoForm = document.getElementById('addToDoForm');
+const newToDoText = document.getElementById('newToDoText');
+
+
+function createNewToDo(){
+  if (!newToDoText.value) { return ;}
+  toDos.push({
+    title: newToDoText.value,
+    complete:false
+  })
+  newToDoText.value ='';
+  render theUI();
+}
+  function renderTheUI() {
+    const toDoList = document.getElementById('toDoList');
+toDoList.textContent ='';
+
+    toDos.forEach(function(toDo){
+      const newLi = document.createElement('li');
+      const checkbox = document.createElement('input');
+      checkbox.type="checkbox";
+
+      newLi.textContent = toDo.title;
+      toDoList.appendChild(newLi);
+      newLi.appendChild(checkbox);
+  });
+
+  }
+
+addToDoForm.addEventListener('submit',even => {
+  event.preventDefault();
+  createNewToDo();
+  newToDoText.value ='';
 });
+
+
+window.onload =function () {
+  onReady();
 }
