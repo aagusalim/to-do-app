@@ -1,3 +1,6 @@
+let del =[]
+document.getElementById("delete").innerHTML = del;
+
 function onReady(){
 let toDos = [];
 const addToDoForm = document.getElementById('addToDoForm');
@@ -6,9 +9,14 @@ const newToDoText = document.getElementById('newToDoText');
 
 function createNewToDo(){
   if (!newToDoText.value) { return ;}
+  for (i = 0; i < del.length; i++)
+{
+    document.getElementById('delete' + i).href = del[i];
+}
   toDos.push({
     title: newToDoText.value,
-    complete:false
+    complete:false,
+    id: del.value
   })
   newToDoText.value ='';
   render theUI();
@@ -36,6 +44,6 @@ addToDoForm.addEventListener('submit',even => {
 });
 
 
-window.onload =function () {
+window.onload = function () {
   onReady();
 }
